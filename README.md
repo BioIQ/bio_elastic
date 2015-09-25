@@ -1,4 +1,4 @@
-# Bio::Elastic
+# BioElastic
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'bio-elastic'
+    gem 'bio_elastic'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install bio-elastic
+    $ gem install bio_elastic
 
 ## Usage
 

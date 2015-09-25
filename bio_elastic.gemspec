@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'bio/elastic/version'
+require 'bio_elastic/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "bio-elastic"
-  spec.version       = Bio::Elastic::VERSION
+  spec.name          = "bio_elastic"
+  spec.version       = BioElastic::VERSION
   spec.authors       = ["Kyle Campos"]
   spec.email         = ["kyle.campos@gmail.com"]
   spec.description   = %q{TODO: Write a gem description}
