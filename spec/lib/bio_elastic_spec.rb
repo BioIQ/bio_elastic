@@ -13,8 +13,8 @@ describe BioElastic do
     let(:port) { default_port }
 
     def clear_environment
-      ENV.stub(:[]).with("ELASTIC_SEARCH_HOST").and_return(nil)
-      ENV.stub(:[]).with("ELASTIC_SEARCH_PORT").and_return(nil)
+      allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_HOST").and_return(nil)
+      allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_PORT").and_return(nil)
     end
 
     before(:each) { allow(Elasticsearch::Client).to receive(:new).with(:hosts => {:port => port, :host => host}, :log => true).and_return(es_client) }
@@ -29,7 +29,7 @@ describe BioElastic do
 
         context "and ELASTIC_SEARCH_HOST set" do
           let(:host) { "some.elastic.host" }
-          before(:each) { ENV.stub(:[]).with("ELASTIC_SEARCH_HOST").and_return(host) }
+          before(:each) { allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_HOST").and_return(host) }
 
           specify { expect(client.host).to eq(host) }
         end
@@ -49,7 +49,7 @@ describe BioElastic do
 
         context "and ELASTIC_SEARCH_PORT set" do
           let(:port) { "9200" }
-          before(:each) { ENV.stub(:[]).with("ELASTIC_SEARCH_PORT").and_return(port) }
+          before(:each) { allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_PORT").and_return(port) }
 
           specify { expect(client.port).to eq(port) }
         end
@@ -103,10 +103,14 @@ describe BioElastic do
     end
 
     describe "#initialize" do
+      let(:now_time) { instance_double(Time) }
+      let(:utc_time) { instance_double(Time) }
       let(:iso_time) { "2015-10-12T20:03:20Z" }
       
-      before(:each) do 
-        Time.stub_chain(:now, :utc, :iso8601).and_return(iso_time)
+      before(:each) do
+        allow(Time).to receive(:now).and_return(now_time)
+        allow(now_time).to receive(:utc).and_return(utc_time)
+        allow(utc_time).to receive(:iso8601).and_return(iso_time)
         allow(BioElastic::Client).to receive(:new).and_return(client)
       end
       
@@ -197,10 +201,10 @@ describe BioElastic do
     end
 
     describe "#create" do
-      before(:each) { doc.stub(:client).and_return client }
+      before(:each) { allow(doc).to receive(:client).and_return client }
 
       context "when document is valid" do
-        before(:each) { doc.stub(:is_valid?).and_return true }
+        before(:each) { allow(doc).to receive(:is_valid?).and_return true }
 
         it "should successfully create document" do
           expect(client).to receive(:create_doc).with(:index => index, :type => doc.type, :body => doc.body) { :success }
@@ -209,7 +213,7 @@ describe BioElastic do
       end
 
       context "when document is not valid" do
-        before(:each) { doc.stub(:is_valid?).and_return false }
+        before(:each) { allow(doc).to receive(:is_valid?).and_return false }
 
         it "should raise an exception" do
           expect {doc.create}.to raise_error("document is not valid")
