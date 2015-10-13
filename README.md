@@ -1,6 +1,6 @@
 # BioElastic
 
-TODO: Write a gem description
+Interface for creating documents in BioIQ's elasticsearch document store
 
 ## Installation
 

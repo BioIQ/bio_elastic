@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = BioElastic::VERSION
   spec.authors       = ["Kyle Campos"]
   spec.email         = ["kyle.campos@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Interface for BioIQ's elasticsearch document store}
+  spec.summary       = %q{Abstraction layer for BioIQ doc types}
+  spec.homepage      = "https://github.com/BioIQ/bio_elastic"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -20,4 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency 'rspec'
+
+  spec.add_runtime_dependency 'elasticsearch', '~>1.0.12'
 end
