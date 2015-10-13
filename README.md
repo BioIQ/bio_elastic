@@ -1,3 +1,5 @@
+[![Build Status](https://magnum.travis-ci.com/BioIQ/bio_elastic.svg?token=kQGGz9poYoJcrTodVFy3&branch=master)](https://magnum.travis-ci.com/BioIQ/bio_elastic)
+
 # BioElastic
 
 Interface for creating documents in BioIQ's elasticsearch document store
