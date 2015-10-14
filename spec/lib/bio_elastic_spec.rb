@@ -11,13 +11,14 @@ describe BioElastic do
     let(:default_port) { "8200" }
     let(:host) { default_host }
     let(:port) { default_port }
+    let(:log) { false }
 
     def clear_environment
       allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_HOST").and_return(nil)
       allow(ENV).to receive(:[]).with("ELASTIC_SEARCH_PORT").and_return(nil)
     end
 
-    before(:each) { allow(Elasticsearch::Client).to receive(:new).with(:hosts => {:port => port, :host => host}, :log => true).and_return(es_client) }
+    before(:each) { allow(Elasticsearch::Client).to receive(:new).with(:hosts => {:port => port, :host => host}, :log => log).and_return(es_client) }
 
     describe "#initialize" do
       before(:each) { clear_environment }
@@ -60,6 +61,17 @@ describe BioElastic do
         let(:options) { {:port => port} }
 
         specify { expect(client.port).to eq(port) }
+      end
+
+      context "with no log option passed in options" do
+        specify { expect(client.log).to be false }
+      end
+
+      context "with log option passed in options" do
+        let(:log) { true }
+        let(:options) { {:log => log} }
+
+        specify { expect(client.log).to be log }
       end
 
       context "with no index_prefix passed in options" do

@@ -3,13 +3,15 @@ require "elasticsearch"
 
 module BioElastic
   class Client
-    attr_reader :host, :port, :connection, :index_prefix
+    attr_accessor :host, :port, :index_prefix, :log
+    attr_reader :connection
     
     def initialize(options={})
       @host = options[:host] || ENV["ELASTIC_SEARCH_HOST"] || "localhost"
       @port = options[:port] || ENV["ELASTIC_SEARCH_PORT"] || "8200"
+      @log  = options[:log] || false
       @index_prefix = options[:index_prefix] || "ops-"
-      @connection   = Elasticsearch::Client.new :hosts => {:port => @port, :host => @host}, :log => true
+      @connection   = Elasticsearch::Client.new :hosts => {:port => @port, :host => @host}, :log => @log
     end
 
     def index
